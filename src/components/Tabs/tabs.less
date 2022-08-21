@@ -1,0 +1,207 @@
+// @import (optional, reference) "~style/common.less";
+@white: #fff;
+
+@font-weight: 600;
+
+@line-height-md: 0.2rem;
+
+@tab-text-color: #666666;
+@tab-active-text-color: #333333;
+@tab-font-size: 0.14rem;
+@tab-line-height: @line-height-md;
+
+@padding-base: 0.04rem;
+@padding-xs: @padding-base * 2;
+@padding-sm: @padding-base * 3;
+
+@tabs-default-color: #12ADA9;
+@tabs-line-height: 0.5rem;
+@tabs-nav-background-color: @white;
+@tabs-bottom-bar-width: 0.12rem;
+@tabs-bottom-bar-height: 0.02rem;
+@tabs-bottom-bar-color: @tabs-default-color;
+@tab-disabled-text-color  :#AAAAAA;
+
+.tab {
+  position       : relative;
+  display        : flex;
+  flex           : 1;
+  justify-content: center;
+  align-items    : center;
+  box-sizing     : border-box;
+  padding        : 0 @padding-base;
+  // padding-top: 0.2rem;
+  color          : @tab-text-color;
+  font-size      : @tab-font-size;
+  line-height    : @tab-line-height;
+  cursor         : pointer;
+
+  &--active {
+    color      : @tab-active-text-color;
+    font-weight: @font-weight;
+  }
+
+  &--disabled {
+    color : @tab-disabled-text-color;
+    cursor: not-allowed;
+  }
+
+  &--shrink {
+    flex   : none;
+    padding: 0 @padding-xs;
+  }
+
+  &--grow {
+    flex   : 1 0 auto;
+    padding: 0 @padding-sm;
+  }
+
+
+  &__text {
+    &--ellipsis {
+      display           : -webkit-box;
+      overflow          : hidden;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+  }
+
+  &__text-wrapper {
+    position: relative;
+  }
+
+  &__dot {
+    position        : absolute;
+    top             : 0;
+    right           : 0;
+    transform       : translateX(100%);
+    width: 0.06rem;
+    height: 0.06rem;
+    box-sizing      : border-box;
+    background-color: #FF4A55;
+    border-radius   : 100%;
+  }
+}
+
+.tabs {
+  position: relative;
+
+  &__wrap {
+    overflow     : hidden;
+    border-bottom: 0.01rem #EBEBEB solid;
+
+    .tabs__nav {
+      &--complete {
+        overflow-x                : auto;
+        overflow-y                : hidden;
+        -webkit-overflow-scrolling: touch;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+    }
+  }
+
+  &__nav {
+    position        : relative;
+    display         : flex;
+    background-color: @tabs-nav-background-color;
+    user-select     : none;
+
+    &--line {
+      box-sizing       : content-box;
+      height           : 100%;
+      // padding-bottom: 15px; /* 15px padding to hide scrollbar in mobile safari */
+    }
+
+    &--shrink {
+      padding: 0 @padding-xs;
+    }
+
+    &--line&--complete {
+      padding-right: @padding-xs;
+      padding-left : @padding-xs;
+    }
+
+  }
+
+  &__line {
+    position        : absolute;
+    bottom          : 0;
+    left            : 0;
+    z-index         : 1;
+    width           : @tabs-bottom-bar-width;
+    height          : @tabs-bottom-bar-height;
+    background-color: @tabs-bottom-bar-color;
+    border-radius: 0.01rem;
+
+  }
+
+  .tabs__slots__line {
+    position: absolute;
+    bottom  : 0;
+    left    : 0;
+    z-index : 2;
+    width   : @tabs-bottom-bar-width;
+    height  : @tabs-bottom-bar-height;
+  }
+
+  &__content {
+    &--animated {
+      overflow: hidden;
+    }
+  }
+
+  &--line {
+    .tabs__wrap {
+      height: @tabs-line-height;
+    }
+  }
+}
+
+// @media (prefers-color-scheme: dark) and (max-device-width: 1024px) {
+//   .tab {
+//     &.dark {
+
+//       color: @dark_666;
+
+//       .tab--active {
+//         color: @dark_333;
+//       }
+
+
+//       .tab__text {
+//         .tab--ellipsis {}
+//       }
+
+//       .tab__text-wrapper {}
+
+//       .tab__dot {
+//         background-color: #FF4A55;
+//       }
+//     }
+//   }
+
+//   .tabs {
+//     &.dark {
+//       .tabs__wrap {
+//         border-bottom: 0.01rem @dark_ebe solid;
+//       }
+
+//       .tabs__nav {
+//         background-color: @dark_222;
+//       }
+
+//       .tabs__line {
+//         background-color: @tabs-bottom-bar-color;
+//       }
+
+
+//       .tabs--line {
+//         .tabs__wrap {}
+//       }
+//     }
+//   }
+// }
