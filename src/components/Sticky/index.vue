@@ -4,7 +4,7 @@
  * @LineEnd: ----------------------------------------------
 -->
 <template>
-  <div :style="wrapStyle">
+  <div :style="wrapStyle" ref="root">
     <div :class="contentClass" :style="contentStyle">
       <slot />
     </div>

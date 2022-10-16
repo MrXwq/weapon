@@ -1,5 +1,12 @@
 <template>
-  <div v-show="show" class="tab__pane">
+  <div
+    v-if="parent.animated"
+    class="tab__pane-wrapper"
+    :class="{ 'tab__pane-wrapper--inactive': !isActive }"
+  >
+    <div class="tab__pane"><slot /></div>
+  </div>
+  <div v-else-if="show" class="tab__pane">
     <template v-if="shouldRender">
       <slot />
     </template>
@@ -52,3 +59,6 @@ export default {
   },
 };
 </script>
+<style lang="less" scoped>
+@import "./tab.less";
+</style>

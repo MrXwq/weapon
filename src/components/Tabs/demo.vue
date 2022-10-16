@@ -1,6 +1,6 @@
 <template>
   <div class="demo-tab">
-    <!-- <div class="demo-container">
+    <div class="demo-container">
       <h3>基础用法</h3>
       <Tabs v-model="active">
         <Tab :title="t('tab') + index" v-for="index in tabs" :key="index">
@@ -75,7 +75,7 @@
           {{ t("content") }} {{ index }}
         </Tab>
       </Tabs>
-    </div> -->
+    </div>
 
     <div class="demo-container">
       <h3>切换动画</h3>
@@ -86,7 +86,7 @@
       </Tabs>
     </div>
 
-    <!-- <div class="demo-container">
+    <div class="demo-container">
       <h3>粘性布局</h3>
       <Tabs :active="active" sticky>
         <Tab :title="t('tab') + index" v-for="index in tabs" :key="index">
@@ -121,13 +121,13 @@
         </Tab>
       </Tabs>
     </div>
-    <div v-if="loading">loading...</div> -->
+    <div v-if="loading">loading...</div>
   </div>
 </template>
 
 <script>
-import Tabs from "../components/Tabs/Tabs.vue";
-import Tab from "../components/Tabs/Tab.vue";
+import Tabs from "./Tabs";
+import Tab from "./Tab";
 
 export default {
   components: {

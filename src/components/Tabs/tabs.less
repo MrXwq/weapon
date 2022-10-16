@@ -1,4 +1,4 @@
-// @import (optional, reference) "~style/common.less";
+@import (optional, reference) "~style/common.less";
 @white: #fff;
 
 @font-weight: 600;
@@ -148,6 +148,13 @@
     height  : @tabs-bottom-bar-height;
   }
 
+  &__track {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    will-change: left;
+  }
   &__content {
     &--animated {
       overflow: hidden;
@@ -161,47 +168,47 @@
   }
 }
 
-// @media (prefers-color-scheme: dark) and (max-device-width: 1024px) {
-//   .tab {
-//     &.dark {
+@media (prefers-color-scheme: dark) and (max-device-width: 1024px) {
+  .tab {
+    &.dark {
 
-//       color: @dark_666;
+      color: @dark_666;
 
-//       .tab--active {
-//         color: @dark_333;
-//       }
-
-
-//       .tab__text {
-//         .tab--ellipsis {}
-//       }
-
-//       .tab__text-wrapper {}
-
-//       .tab__dot {
-//         background-color: #FF4A55;
-//       }
-//     }
-//   }
-
-//   .tabs {
-//     &.dark {
-//       .tabs__wrap {
-//         border-bottom: 0.01rem @dark_ebe solid;
-//       }
-
-//       .tabs__nav {
-//         background-color: @dark_222;
-//       }
-
-//       .tabs__line {
-//         background-color: @tabs-bottom-bar-color;
-//       }
+      .tab--active {
+        color: @dark_333;
+      }
 
 
-//       .tabs--line {
-//         .tabs__wrap {}
-//       }
-//     }
-//   }
-// }
+      .tab__text {
+        .tab--ellipsis {}
+      }
+
+      .tab__text-wrapper {}
+
+      .tab__dot {
+        background-color: #FF4A55;
+      }
+    }
+  }
+
+  .tabs {
+    &.dark {
+      .tabs__wrap {
+        border-bottom: 0.01rem @dark_ebe solid;
+      }
+
+      .tabs__nav {
+        background-color: @dark_222;
+      }
+
+      .tabs__line {
+        background-color: @tabs-bottom-bar-color;
+      }
+
+
+      .tabs--line {
+        .tabs__wrap {}
+      }
+    }
+  }
+}

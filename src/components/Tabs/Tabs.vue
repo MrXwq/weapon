@@ -110,7 +110,11 @@
       </div>
       <slot name="nav-bottom"></slot>
     </template>
-    <Content>
+    <Content
+      :animated="animated"
+      :duration="duration"
+      :currentIndex="currentIndex"
+    >
       <slot></slot>
     </Content>
   </div>
@@ -128,6 +132,11 @@ import { isDef } from "../utils";
 
 export default {
   name: "b-tabs",
+  inject: {
+    BPopup: {
+      default: null,
+    },
+  },
   mixins: [
     ParentMixin("tabs"),
     BindEventMixin(function (bind) {
@@ -170,6 +179,7 @@ export default {
     },
     sticky: Boolean,
     stickyType: String,
+    animated: Boolean,
     swipeThreshold: {
       type: [Number, String],
       default: 5,
@@ -241,11 +251,13 @@ export default {
       }
     },
     currentIndex() {
+      this.initNavList();
       this.scrollIntoView();
       this.setLine();
       this.scrollTabTop();
     },
     children() {
+      this.initNavList();
       this.setCurrentIndexByName(this.active);
       this.setLine();
       this.$nextTick(() => {
@@ -254,35 +266,61 @@ export default {
     },
   },
   mounted() {
-    this.navList = this.children.map((item) => {
-      return {
-        titleSlot: !!item.$slots.title,
-        title: item.$slots.title
-          ? {
-              render: () => item.$slots.title[0],
-            }
-          : item.title,
-        dot: item.dot,
-        disabled: item.disabled,
-      };
-    });
+    this.initNavList();
     this.init();
-    // this.setLine();
+    if (this.BPopup) {
+      this.BPopup.onReopen(() => {
+        this.setLine();
+      });
+    }
   },
   methods: {
+    initNavList() {
+      this.navList = this.children.map((item) => {
+        return {
+          titleSlot: !!item.$slots.title,
+          title: item.$slots.title
+            ? {
+                render: () => item.$slots.title[0],
+              }
+            : item.title,
+          dot: item.dot,
+          disabled: item.disabled,
+        };
+      });
+    },
+    // 重置标题
+    resetNav() {
+      this.$nextTick(() => {
+        this.initNavList();
+      });
+    },
     init() {
+      this.setCurrentIndexByName(this.active);
       this.$nextTick(() => {
         this.inited = true;
-        this.tabHeight = this.$refs.wrap.getBoundingClientRect().height;
-        this.scrollIntoView(true);
+        if (this.$refs.wrap) {
+          this.tabHeight =
+            this.$refs.wrap.getBoundingClientRect().height > 0
+              ? this.$refs.wrap.getBoundingClientRect().height
+              : this.$refs.wrap.offsetHeight;
+        }
+        this.$nextTick(() => {
+          if (this.$refs.wrap) {
+            this.tabHeight =
+              this.$refs.wrap.getBoundingClientRect().height > 0
+                ? this.$refs.wrap.getBoundingClientRect().height
+                : this.$refs.wrap.offsetHeight;
+            this.scrollIntoView(true);
+          }
+        });
       });
     },
 
     getCurrentIndexOnScroll() {
       const { children } = this;
 
-      // eslint-disable-next-line no-plusplus
-      for (let index = 0; index < children.length; index++) {
+      for (let index = 0; index < children.length; index += 1) {
         const { top } = children[index].$el.getBoundingClientRect();
 
         if (top > this.scrollOffset) {

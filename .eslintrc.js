@@ -16,5 +16,6 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     "vue/no-side-effects-in-computed-properties": 0,
     "vue/multi-word-component-names": 0,
+    "vue/return-in-computed-property": 0,
   },
 };
